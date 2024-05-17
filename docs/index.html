@@ -3,56 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pergunta</title>
+<title>Amor por Corgis e Gatos Laranjas</title>
 <style>
     body {
         font-family: Arial, sans-serif;
         text-align: center;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 0;
     }
-    #pergunta {
+    h1 {
+        color: #333;
+        margin-top: 20px;
+    }
+    #imagens {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .imagem {
+        margin: 20px;
+    }
+    .mensagem {
+        margin-top: 50px;
         font-size: 24px;
-        margin-bottom: 20px;
-    }
-    #botoes {
-        display: flex;
-        justify-content: center;
-    }
-    button {
-        padding: 10px 20px;
-        font-size: 18px;
-        margin: 0 10px;
-        cursor: pointer;
+        color: #555;
     }
 </style>
 </head>
 <body>
-    <div id="pergunta">Voce vai me dar esse cuzinho ai em?</div>
-    <div id="botoes">
-        <button id="sim" onclick="responder('sim')">Sim</button>
-        <button id="nao" onclick="responder('nao')">Não</button>
+    <h1>Amor por Corgis e Gatos Laranjas</h1>
+    <div id="imagens">
+        <img class="imagem" src="https://www.placecorgi.com/300/300" alt="Corgi">
+        <img class="imagem" src="https://www.placecorgi.com/300/300" alt="Corgi">
+        <img class="imagem" src="https://www.placecorgi.com/300/300" alt="Corgi">
+        <img class="imagem" src="https://www.placekitten.com/300/300" alt="Gato Laranja">
+        <img class="imagem" src="https://www.placekitten.com/300/300" alt="Gato Laranja">
+        <img class="imagem" src="https://www.placekitten.com/300/300" alt="Gato Laranja">
     </div>
-
-    <script>
-        function responder(resposta) {
-            if (resposta === 'nao') {
-                moveBotao();
-            } else {
-                alert('amanha entao');
-            }
-        }
-
-        function moveBotao() {
-            var botaoNao = document.getElementById('nao');
-            var novoTop = Math.random() * (window.innerHeight - botaoNao.clientHeight);
-            var novoLeft = Math.random() * (window.innerWidth - botaoNao.clientWidth);
-            botaoNao.style.position = 'absolute';
-            botaoNao.style.top = novoTop + 'px';
-            botaoNao.style.left = novoLeft + 'px';
-        }
-    </script>
+    <div class="mensagem">Para a pessoa mais especial do mundo, com todo o meu amor ❤️</div>
 </body>
 </html>
