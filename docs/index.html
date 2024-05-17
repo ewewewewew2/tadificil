@@ -9,8 +9,9 @@
         margin: 0;
         padding: 0;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
         height: 100vh;
         background-color: #f8f8f8;
     }
@@ -18,13 +19,23 @@
         border: 1px solid #333;
         touch-action: none; /* Impede que a tela se mova ao tocar */
     }
+    #controls {
+        display: flex;
+        margin-top: 20px;
+    }
+    button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
 <canvas id="gameCanvas" width="800" height="600"></canvas>
-<div>
-    <button id="moveLeftBtn">Esquerda</button>
-    <button id="moveRightBtn">Direita</button>
+<div id="controls">
+    <button id="moveLeftBtn">&lt;</button>
+    <button id="moveRightBtn">&gt;</button>
 </div>
 
 <script>
@@ -130,4 +141,28 @@
                         dy = -dy;
                         brick.status = 0;
                         score++;
-                        if (score === brickRowCount *
+                        if (score === brickRowCount * brickColumnCount) {
+                            alert("Você venceu!");
+                            document.location.reload();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Função principal do jogo
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBricks();
+        drawBall();
+        drawPaddle();
+        collisionDetection();
+
+        // Colisão com as bordas
+        if (x + dx > canvas.width - 10 || x + dx < 10) {
+            dx = -dx;
+        }
+        if (y + dy < 10) {
+            dy = -dy;
+        } else if (y
