@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Álbuns do Joji</title>
+<title>Comparação de Letras de Músicas</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -13,41 +13,87 @@
     h1 {
         color: #333;
     }
-    .album {
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 20px;
+    .song-selector {
         margin: 20px auto;
-        max-width: 600px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    .album img {
-        max-width: 100%;
+    select {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .lyrics-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
         border-radius: 10px;
-        margin-bottom: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .lyrics-column {
+        flex: 1;
+        padding: 10px;
     }
 </style>
 </head>
 <body>
-    <h1>Álbuns do Joji</h1>
-    
-    <div class="album">
-        <h2>BALLADS 1</h2>
-        <img src="ballads1_cover.jpg" alt="Capa do álbum BALLADS 1">
-        <p>Lançamento: 26 de outubro de 2018</p>
-        <p>Gravadora: 88rising</p>
-        <p>Formato: CD, vinil, streaming</p>
-        <p>Descrição: BALLADS 1 é o primeiro álbum de estúdio de Joji. Ele apresenta uma mistura de estilos, incluindo R&B, hip hop alternativo e pop.</p>
+    <h1>Comparação de Letras de Músicas</h1>
+
+    <div class="song-selector">
+        <label for="song">Escolha uma música:</label>
+        <select id="song">
+            <optgroup label="Taylor Swift">
+                <option value="love_story">Love Story</option>
+                <option value="blank_space">Blank Space</option>
+                <option value="shake_it_off">Shake It Off</option>
+            </optgroup>
+            <optgroup label="Joji">
+                <option value="slow_dancing_in_the_dark">Slow Dancing in the Dark</option>
+                <option value="run">Run</option>
+                <option value="your_man">Your Man</option>
+            </optgroup>
+        </select>
     </div>
 
-    <div class="album">
-        <h2>Nectar</h2>
-        <img src="nectar_cover.jpg" alt="Capa do álbum Nectar">
-        <p>Lançamento: 25 de setembro de 2020</p>
-        <p>Gravadora: 88rising, 12Tone Music</p>
-        <p>Formato: CD, vinil, streaming</p>
-        <p>Descrição: Nectar é o segundo álbum de estúdio de Joji. Ele continua a explorar temas de melancolia e introspecção, com uma mistura de gêneros musicais.</p>
+    <div class="lyrics-container">
+        <div class="lyrics-column" id="taylorSwiftLyrics">
+            Selecione uma música de Taylor Swift para exibir as letras.
+        </div>
+        <div class="lyrics-column" id="jojiLyrics">
+            Selecione uma música de Joji para exibir as letras.
+        </div>
     </div>
+
+    <script>
+        const lyrics = {
+            taylor_swift: {
+                love_story: "We were both young when I first saw you...",
+                blank_space: "Nice to meet you, where you been?...",
+                shake_it_off: "I stay out too late, got nothing in my brain..."
+            },
+            joji: {
+                slow_dancing_in_the_dark: "I don't want a friend...",
+                run: "I fell for your magic...",
+                your_man: "Let me run my fingers through your hair..."
+            }
+        };
+
+        document.getElementById('song').addEventListener('change', function() {
+            const song = this.value;
+            const taylorSwiftLyrics = document.getElementById('taylorSwiftLyrics');
+            const jojiLyrics = document.getElementById('jojiLyrics');
+
+            if (song in lyrics.taylor_swift) {
+                taylorSwiftLyrics.textContent = lyrics.taylor_swift[song];
+                jojiLyrics.textContent = "Selecione uma música de Joji para comparar as letras.";
+            } else if (song in lyrics.joji) {
+                taylorSwiftLyrics.textContent = "Selecione uma música de Taylor Swift para comparar as letras.";
+                jojiLyrics.textContent = lyrics.joji[song];
+            }
+        });
+    </script>
 </body>
 </html>
