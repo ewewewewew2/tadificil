@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brick Breaker</title>
+<title>Brick Breaker Avançado</title>
 <style>
     body {
         margin: 0;
@@ -21,29 +21,39 @@
 </style>
 </head>
 <body>
-<canvas id="gameCanvas" width="480" height="320"></canvas>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<div>
+    <button id="moveLeftBtn">Esquerda</button>
+    <button id="moveRightBtn">Direita</button>
+</div>
 
 <script>
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
 
     // Configurações do jogo
-    const brickRowCount = 3;
-    const brickColumnCount = 5;
+    const brickRowCount = 5;
+    const brickColumnCount = 8;
     const brickWidth = 75;
     const brickHeight = 20;
     const brickPadding = 10;
     const brickOffsetTop = 30;
     const brickOffsetLeft = 30;
     const paddleHeight = 10;
-    const paddleWidth = 75;
+    const paddleWidth = 100;
     let x = canvas.width / 2;
     let y = canvas.height - 30;
     let dx = 2;
     let dy = -2;
     let paddleX = (canvas.width - paddleWidth) / 2;
     const bricks = [];
+    const buffs = [];
+    const buffSpeed = 2;
+    let score = 0;
+    let lives = 3;
+    let buffTimer = 0;
 
+    // Criar blocos
     for (let c = 0; c < brickColumnCount; c++) {
         bricks[c] = [];
         for (let r = 0; r < brickRowCount; r++) {
@@ -51,28 +61,18 @@
         }
     }
 
-    document.addEventListener("keydown", keyDownHandler, false);
-    document.addEventListener("keyup", keyUpHandler, false);
+    // Event listeners para o movimento da raquete
+    document.getElementById("moveLeftBtn").addEventListener("mousedown", () => (leftPressed = true));
+    document.getElementById("moveLeftBtn").addEventListener("touchstart", () => (leftPressed = true));
+    document.getElementById("moveLeftBtn").addEventListener("mouseup", () => (leftPressed = false));
+    document.getElementById("moveLeftBtn").addEventListener("touchend", () => (leftPressed = false));
 
-    let rightPressed = false;
-    let leftPressed = false;
+    document.getElementById("moveRightBtn").addEventListener("mousedown", () => (rightPressed = true));
+    document.getElementById("moveRightBtn").addEventListener("touchstart", () => (rightPressed = true));
+    document.getElementById("moveRightBtn").addEventListener("mouseup", () => (rightPressed = false));
+    document.getElementById("moveRightBtn").addEventListener("touchend", () => (rightPressed = false));
 
-    function keyDownHandler(e) {
-        if (e.key === "Right" || e.key === "ArrowRight") {
-            rightPressed = true;
-        } else if (e.key === "Left" || e.key === "ArrowLeft") {
-            leftPressed = true;
-        }
-    }
-
-    function keyUpHandler(e) {
-        if (e.key === "Right" || e.key === "ArrowRight") {
-            rightPressed = false;
-        } else if (e.key === "Left" || e.key === "ArrowLeft") {
-            leftPressed = false;
-        }
-    }
-
+    // Desenhar bola
     function drawBall() {
         ctx.beginPath();
         ctx.arc(x, y, 10, 0, Math.PI * 2);
@@ -81,6 +81,7 @@
         ctx.closePath();
     }
 
+    // Desenhar raquete
     function drawPaddle() {
         ctx.beginPath();
         ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
@@ -89,6 +90,7 @@
         ctx.closePath();
     }
 
+    // Desenhar blocos
     function drawBricks() {
         for (let c = 0; c < brickColumnCount; c++) {
             for (let r = 0; r < brickRowCount; r++) {
@@ -107,6 +109,18 @@
         }
     }
 
+    // Desenhar buffs
+    function drawBuffs() {
+        for (let i = 0; i < buffs.length; i++) {
+            ctx.beginPath();
+            ctx.arc(buffs[i].x, buffs[i].y, 5, 0, Math.PI * 2);
+            ctx.fillStyle = "#DD0095";
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+
+    // Checar colisão com os blocos
     function collisionDetection() {
         for (let c = 0; c < brickColumnCount; c++) {
             for (let r = 0; r < brickRowCount; r++) {
@@ -115,46 +129,5 @@
                     if (x > brick.x && x < brick.x + brickWidth && y > brick.y && y < brick.y + brickHeight) {
                         dy = -dy;
                         brick.status = 0;
-                    }
-                }
-            }
-        }
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBricks();
-        drawBall();
-        drawPaddle();
-        collisionDetection();
-
-        if (x + dx > canvas.width - 10 || x + dx < 10) {
-            dx = -dx;
-        }
-        if (y + dy < 10) {
-            dy = -dy;
-        } else if (y + dy > canvas.height - 10) {
-            if (x > paddleX && x < paddleX + paddleWidth) {
-                dy = -dy;
-            } else {
-                document.location.reload();
-                alert("GAME OVER");
-            }
-        }
-
-        if (rightPressed && paddleX < canvas.width - paddleWidth) {
-            paddleX += 7;
-        } else if (leftPressed && paddleX > 0) {
-            paddleX -= 7;
-        }
-
-        x += dx;
-        y += dy;
-
-        requestAnimationFrame(draw);
-    }
-
-    draw();
-</script>
-</body>
-</html>
+                        score++;
+                        if (score === brickRowCount *
