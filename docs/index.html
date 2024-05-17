@@ -16,7 +16,6 @@
         background-color: #f8f8f8;
     }
     canvas {
-        border: 1px solid #333;
         touch-action: none; /* Impede que a tela se mova ao tocar */
     }
     #controls {
@@ -43,8 +42,8 @@
     const ctx = canvas.getContext("2d");
 
     // Configurações do jogo
-    const brickRowCount = 5;
-    const brickColumnCount = 8;
+    const brickRowCount = 8;
+    const brickColumnCount = 12;
     const brickWidth = 75;
     const brickHeight = 20;
     const brickPadding = 10;
@@ -58,6 +57,7 @@
     let dy = -2;
     let paddleX = (canvas.width - paddleWidth) / 2;
     const bricks = [];
+    let lives = 3;
 
     // Criar blocos
     for (let c = 0; c < brickColumnCount; c++) {
@@ -85,7 +85,7 @@
     function drawBall() {
         ctx.beginPath();
         ctx.arc(x, y, 10, 0, Math.PI * 2);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = "#000000";
         ctx.fill();
         ctx.closePath();
     }
@@ -94,7 +94,7 @@
     function drawPaddle() {
         ctx.beginPath();
         ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = "#000000";
         ctx.fill();
         ctx.closePath();
     }
@@ -110,7 +110,7 @@
                     bricks[c][r].y = brickY;
                     ctx.beginPath();
                     ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                    ctx.fillStyle = "#0095DD";
+                    ctx.fillStyle = "#000000";
                     ctx.fill();
                     ctx.closePath();
                 }
@@ -123,4 +123,20 @@
         for (let c = 0; c < brickColumnCount; c++) {
             for (let r = 0; r < brickRowCount; r++) {
                 const brick = bricks[c][r];
-                if (brick.status === 
+                if (brick.status === 1) {
+                    if (x > brick.x && x < brick.x + brickWidth && y > brick.y && y < brick.y + brickHeight) {
+                        dy = -dy;
+                        brick.status = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    // Função principal do jogo
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBricks();
+        drawBall();
+        drawPaddle();
+       
