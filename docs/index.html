@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Botão de Amor</title>
+    <title>Surpresa de Amor</title>
     <style>
         body {
             display: flex;
@@ -12,21 +12,46 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffe6f2; /* Fundo rosa claro */
+            background-image: url(https://i.imgur.com/bUAuTXs.gif); /* URL da sua imagem */
+            background-size: cover;
+            background-position: center;
+        }
+        h1 {
+            color: #ff66b2;
+            text-shadow: 2px 2px #ff99cc;
+        }
+        button {
+            background-color: #ff66b2;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 3px 3px 5px #b30059;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #e60073;
+            transform: scale(1.1);
         }
         #container {
             display: flex;
             flex-wrap: wrap;
             max-width: 100%;
+            justify-content: center;
         }
         .message {
             margin: 5px;
             padding: 10px;
-            background-color: purple; /* Cor de fundo roxa */
-            color: white; /* Cor do texto branca para melhor contraste */
-            border: 1px solid darkviolet; /* Borda roxa escura */
-            border-radius: 5px;
+            background-color: #d147a3;
+            color: white;
+            border: 1px solid #b30086;
+            border-radius: 10px;
             font-size: 1.5em;
+            text-align: center;
             animation: fadeIn 1s;
         }
         @keyframes fadeIn {
@@ -36,6 +61,7 @@
     </style>
 </head>
 <body>
+    <h1>Surpresa para Você!</h1>
     <button onclick="addLoveMessage()">Clique aqui</button>
     <div id="container"></div>
 
