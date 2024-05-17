@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comparação de Letras de Músicas</title>
+<title>Mashup de Taylor Swift & Joji</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -22,78 +22,60 @@
         border-radius: 5px;
         border: 1px solid #ccc;
     }
-    .lyrics-container {
+    .audio-container {
         max-width: 600px;
         margin: 20px auto;
         padding: 20px;
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: auto;
-        display: flex;
-        justify-content: space-between;
     }
-    .lyrics-column {
-        flex: 1;
-        padding: 10px;
+    audio {
+        width: 100%;
+        margin-top: 20px;
     }
 </style>
 </head>
 <body>
-    <h1>Comparação de Letras de Músicas</h1>
+    <h1>Mashup de Taylor Swift & Joji</h1>
 
     <div class="song-selector">
-        <label for="song">Escolha uma música:</label>
-        <select id="song">
-            <optgroup label="Taylor Swift">
-                <option value="love_story">Love Story</option>
-                <option value="blank_space">Blank Space</option>
-                <option value="shake_it_off">Shake It Off</option>
-            </optgroup>
-            <optgroup label="Joji">
-                <option value="slow_dancing_in_the_dark">Slow Dancing in the Dark</option>
-                <option value="run">Run</option>
-                <option value="your_man">Your Man</option>
-            </optgroup>
+        <label for="taylorSwiftSong">Escolha uma música de Taylor Swift:</label>
+        <select id="taylorSwiftSong">
+            <option value="love_story">Love Story</option>
+            <option value="blank_space">Blank Space</option>
+            <option value="shake_it_off">Shake It Off</option>
+        </select>
+
+        <label for="jojiSong">Escolha uma música de Joji:</label>
+        <select id="jojiSong">
+            <option value="slow_dancing_in_the_dark">Slow Dancing in the Dark</option>
+            <option value="run">Run</option>
+            <option value="your_man">Your Man</option>
         </select>
     </div>
 
-    <div class="lyrics-container">
-        <div class="lyrics-column" id="taylorSwiftLyrics">
-            Selecione uma música de Taylor Swift para exibir as letras.
-        </div>
-        <div class="lyrics-column" id="jojiLyrics">
-            Selecione uma música de Joji para exibir as letras.
-        </div>
+    <div class="audio-container">
+        <h2>Mashup:</h2>
+        <audio controls id="mashupAudio">
+            <source src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 
     <script>
-        const lyrics = {
-            taylor_swift: {
-                love_story: "We were both young when I first saw you...",
-                blank_space: "Nice to meet you, where you been?...",
-                shake_it_off: "I stay out too late, got nothing in my brain..."
-            },
-            joji: {
-                slow_dancing_in_the_dark: "I don't want a friend...",
-                run: "I fell for your magic...",
-                your_man: "Let me run my fingers through your hair..."
-            }
-        };
+        document.getElementById('taylorSwiftSong').addEventListener('change', updateMashup);
+        document.getElementById('jojiSong').addEventListener('change', updateMashup);
 
-        document.getElementById('song').addEventListener('change', function() {
-            const song = this.value;
-            const taylorSwiftLyrics = document.getElementById('taylorSwiftLyrics');
-            const jojiLyrics = document.getElementById('jojiLyrics');
+        function updateMashup() {
+            const taylorSwiftSong = document.getElementById('taylorSwiftSong').value;
+            const jojiSong = document.getElementById('jojiSong').value;
+            const mashupAudio = document.getElementById('mashupAudio');
 
-            if (song in lyrics.taylor_swift) {
-                taylorSwiftLyrics.textContent = lyrics.taylor_swift[song];
-                jojiLyrics.textContent = "Selecione uma música de Joji para comparar as letras.";
-            } else if (song in lyrics.joji) {
-                taylorSwiftLyrics.textContent = "Selecione uma música de Taylor Swift para comparar as letras.";
-                jojiLyrics.textContent = lyrics.joji[song];
-            }
-        });
+            // Aqui você pode criar um mashup das duas músicas selecionadas
+            // e definir a src do elemento de áudio para reproduzi-lo
+            mashupAudio.src = ""; // Substitua "" pelo URL do mashup de áudio
+        }
     </script>
 </body>
 </html>
