@@ -15,17 +15,19 @@
     }
     #botoes {
         margin-top: 20px;
+        position: relative; /* Para posicionar os botões relativamente */
     }
     button {
         padding: 10px 20px;
         font-size: 18px;
         margin: 0 10px;
         cursor: pointer;
+        position: absolute; /* Posição absoluta para poder movê-los */
     }
 </style>
 </head>
 <body>
-    <div id="pergunta">vai me dar esse cuzinho ai??</div>
+    <div id="pergunta">voce vai me dar esse cuzinho ai?</div>
     <div id="botoes">
         <button id="sim" onclick="responder('sim')">Sim</button>
         <button id="nao" onclick="responder('nao')">Não</button>
@@ -36,7 +38,7 @@
             if (resposta === 'nao') {
                 moveBotao();
             } else {
-                alert('Ótimo!');
+                alert('amanha entao em');
             }
         }
 
